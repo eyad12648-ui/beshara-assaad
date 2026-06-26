@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الأستاذ بشارة أسعد التعليمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+            overflow: hidden;
+        }
+
+        .bg-shapes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.07;
+            background: #2563eb;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -120px;
+            right: -80px;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -60px;
+            animation-delay: 2s;
+        }
+
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 10%;
+            animation-delay: 4s;
+            opacity: 0.05;
+        }
+
+        .circle-4 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+            opacity: 0.06;
+        }
+
+        .line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.12), transparent);
+            animation: moveLine 10s linear infinite;
+        }
+
+        .line-1 {
+            width: 500px;
+            top: 25%;
+            left: -200px;
+            transform: rotate(-15deg);
+        }
+
+        .line-2 {
+            width: 400px;
+            bottom: 30%;
+            right: -150px;
+            transform: rotate(20deg);
+            animation-delay: 3s;
+        }
+
+        .line-3 {
+            width: 350px;
+            top: 60%;
+            left: 5%;
+            transform: rotate(-8deg);
+            animation-delay: 6s;
+        }
+
+        .dot-grid {
+            position: absolute;
+            top: 10%;
+            left: 8%;
+            display: grid;
+            grid-template-columns: repeat(5, 8px);
+            gap: 12px;
+            opacity: 0.1;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #2563eb;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 700px;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 32px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 10px 40px rgba(37, 99, 235, 0.25),
+                0 2px 8px rgba(37, 99, 235, 0.15);
+            animation: fadeInDown 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+            border-radius: inherit;
+        }
+
+        .logo svg {
+            width: 44px;
+            height: 44px;
+            fill: #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: clamp(26px, 5vw, 42px);
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .title span {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(15px, 2.5vw, 18px);
+            color: #64748b;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 44px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow:
+                0 8px 30px rgba(37, 99, 235, 0.35),
+                0 2px 6px rgba(37, 99, 235, 0.2);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+            border-radius: inherit;
+            transition: opacity 0.35s;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.06) translateY(-2px);
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            box-shadow:
+                0 14px 44px rgba(37, 99, 235, 0.45),
+                0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .cta-btn:active {
+            transform: scale(1.02);
+        }
+
+        .cta-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            transition: transform 0.35s;
+        }
+
+        .cta-btn:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 8px 20px;
+            background: rgba(37, 99, 235, 0.06);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-radius: 100px;
+            font-size: 13px;
+            color: #64748b;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .badge strong {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        @keyframes moveLine {
+            0% {
+                transform: translateX(-100px) rotate(-15deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100px) rotate(-15deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+
+            .logo {
+                width: 76px;
+                height: 76px;
+                border-radius: 18px;
+                margin-bottom: 26px;
+            }
+
+            .logo svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .cta-btn {
+                padding: 16px 36px;
+                font-size: 16px;
+                border-radius: 14px;
+            }
+
+            .circle-1 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .circle-2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .dot-grid {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .cta-btn {
+                padding: 14px 28px;
+                font-size: 15px;
+                gap: 8px;
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 64px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-label {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(37, 99, 235, 0.08);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .features-title {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .features-subtitle {
+            font-size: clamp(14px, 2vw, 17px);
+            color: #94a3b8;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 20px 60px rgba(37, 99, 235, 0.1),
+                0 4px 16px rgba(37, 99, 235, 0.06);
+            border-color: rgba(37, 99, 235, 0.08);
+        }
+
+        .feature-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.05));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: scale(1.08) rotate(-3deg);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: #2563eb;
+            transition: fill 0.4s;
+        }
+
+        .feature-card:hover .feature-icon svg {
+            fill: #ffffff;
+        }
+
+        .feature-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .feature-card:nth-child(1) { transition-delay: 0.1s; }
+        .feature-card:nth-child(2) { transition-delay: 0.25s; }
+        .feature-card:nth-child(3) { transition-delay: 0.4s; }
+
+        @media (max-width: 768px) {
+            .features {
+                padding: 70px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .feature-card {
+                padding: 28px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="bg-shapes">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+            <div class="circle circle-4"></div>
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+            <div class="dot-grid">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                </svg>
+            </div>
+
+            <h1 class="title">
+                منصة <span>الأستاذ بشارة أسعد</span> التعليمية
+            </h1>
+
+            <p class="subtitle">
+                ابدأ رحلتك في تعلم العلوم بطريقة سهلة وممتعة مع شرح مبسط واختبارات ومتابعة مستمرة.
+            </p>
+
+            <a href="https://sir-beshara.my.canva.site/" target="_blank" rel="noopener noreferrer" class="cta-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/>
+                </svg>
+                انقر لدخول المنصة
+            </a>
+
+            <div class="badge">
+                <strong>مجاني</strong> — متاح الآن لجميع الطلاب
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-header">
+            <span class="features-label">المميزات</span>
+            <h2 class="features-title">لماذا تختار منصتنا؟</h2>
+            <p class="features-subtitle">نقدم لك تجربة تعليمية متكاملة تجمع بين المتعة والفاعلية</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm-1 14.5v-5l4.28 2.5L11 17.5zm5.72-6.5H13V6h3.72l-1 5z"/></svg>
+                </div>
+                <h3 class="feature-name">شرح مبسط</h3>
+                <p class="feature-desc">دروس مقسمة بشكل منظم مع شرح واضح ومبسط يناسب جميع المستويات</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                </div>
+                <h3 class="feature-name">اختبارات تفاعلية</h3>
+                <p class="feature-desc">اختبارات قصيرة بعد كل درس لتقييم فهمك وتثبيت المعلومة بفعالية</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                </div>
+                <h3 class="feature-name">متابعة مستمرة</h3>
+                <p class="feature-desc">نظام متابعة يساعدك على تتبع تقدمك وتحقيق أفضل النتائج باستمرار</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.feature-card');
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            cards.forEach(function (card) {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
